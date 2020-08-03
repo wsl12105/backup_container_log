@@ -59,6 +59,12 @@ def remove_back_log(backuplog):
         if current - bklog_mtime > two_days:
             os.remove(bklog)
 
+def main():
+    while True:
+        two_days = 86400 * 2
+        back_log(get_log())
+        remove_back_log(get_back_log())
+        time.sleep(two_days)
+
 if __name__ == "__main__":
-    back_log(get_log())
-    remove_back_log(get_back_log())
+    main()
