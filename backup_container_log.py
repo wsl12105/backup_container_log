@@ -10,6 +10,7 @@ import time
 
 basedir = "/var/lib/docker/containers/"
 containersdir = os.listdir(basedir)
+two_days = 86400 * 2
 
 def get_log():
     container_logs = []
@@ -52,7 +53,7 @@ def get_back_log():
 def remove_back_log(backuplog):
     # remove 2days old back logs
     # unix time 1 day 86400
-    two_days = 86400 * 2
+    
     current = time.time()
     for bklog in backuplog:
         bklog_mtime = os.path.getmtime(bklog) #get back logfile last modify time 
@@ -61,7 +62,6 @@ def remove_back_log(backuplog):
 
 def main():
     while True:
-        two_days = 86400 * 2
         back_log(get_log())
         remove_back_log(get_back_log())
         time.sleep(two_days)
